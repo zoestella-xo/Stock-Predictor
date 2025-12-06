@@ -1,0 +1,81 @@
+:root {
+    --var-blue: rgb(85, 85, 218);
+    --var-black: #102a43;
+    --var-white: rgb(240, 243, 252);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: var(--var-black);
+    color: var(--var-white);
+    min-height: 100vh;
+}
+
+#hero-space {
+    color: var(--var-blue);
+    font-family: "Style Script", cursive;
+    font-size: 25px;
+    text-align: center;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+.main {
+    background-color: var(--var-white);
+    color: var(--var-black);
+    width: 400px;
+    text-align: center;
+    padding: 20px;
+    margin: 0 auto;
+    border: 2px solid var(--var-blue);
+    border-radius: 5px;
+    box-shadow: 5px 5px var(--var-blue);
+}
+
+input {
+    width: 100px;
+    height: 25px;
+    border: 2px solid var(--var-blue);
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+input:hover {
+    box-shadow: 0 0 5px var(--var-blue);
+}
+
+#ticker-input-form {
+    width: 30px;
+    height: 30px;
+    border: 2px solid var(--var-blue);
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+#ticker-input-form:hover {
+    box-shadow: 0 0 5px var(--var-blue);
+}
+
+#generate-report-btn {
+    background-color: var(--var-blue);
+    color: var(--var-white);
+    text-shadow: 0 0 5px var(--var-black);
+    border: none;
+    border-radius: 5px;
+    padding: 8px;
+    margin-top: 8px;
+}
+
+#generate-report-btn:hover {
+    background-color: var(--var-black);
+    margin-bottom: 0;
+}
+
+#cp-footnote {
+    position: absolute;
+    bottom: 5px;
+    padding: 5px;
+    font-size: 15px;
+}
