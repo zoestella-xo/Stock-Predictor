@@ -58,6 +58,11 @@ input:hover {
     box-shadow: 0 0 5px var(--var-blue);
 }
 
+#tickers-choice-display {
+    opacity: 0.5;
+    font-size: 15px;
+}
+
 #generate-report-btn {
     background-color: var(--var-blue);
     color: var(--var-white);
