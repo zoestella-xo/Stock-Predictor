@@ -22,6 +22,8 @@ document.querySelector('#ticker-input-form').addEventListener('click', (e) => {
 function renderTickers() {
     const tickersDiv = document.getElementById('tickers-choice-display')
     tickersDiv.innerHTML = ''
+    tickersDiv.style.opacity = 1.0;
+    tickersDiv.style.fontSize = '15px';
     tickersArr.forEach((ticker, index) => {
         const newTickerSpan = document.createElement('span')
         newTickerSpan.textContent = ticker + (index < tickersArr.length - 1 ? ', ' : '')
@@ -38,8 +40,13 @@ generateReportBtn.addEventListener('click', fetchStock)
 const loadingArea = document.getElementById('loading-panel')
 const apiMessage = document.getElementById('api-message')
 
-const POLYGON_API_KEY =
-    import.meta.env.VITE_POLYGON_API_KEY;
+let POLYGON_API_KEY = null;
+try {
+    POLYGON_API_KEY =
+        import.meta.env.VITE_POLYGON_API_KEY;
+} catch (e) {
+    POLYGON_API_KEY = null;
+}
 
 
 async function fetchStock() {
