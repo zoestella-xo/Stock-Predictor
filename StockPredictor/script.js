@@ -1,4 +1,5 @@
 import { dates } from './dates.js'
+import OpenAI from 'openai'
 
 const tickersArr = []
 
@@ -74,16 +75,57 @@ async function fetchStock() {
     }
 }
 
+const OPENAI_API_KEY =
+    import.meta.env.VITE_POLYGON_API_KEY;
+
+
 async function FetchReport(data) {
-    // TO DO LATER
-    console.log('Stock data received:', data)
+    try {
+        const openai = new OpenAI({
+            apiKey: OPENAI_API_KEY
+        })
+
+        const messages = [{
+            role: 'system',
+            content: `You are a successful, strategic stock broker. 
+            Given data on shares prices over 3 days, write a report of no more tham 150 words 
+            describing the stock performance and recommending whether to buy, hold or sell.
+            Use examples provided between *** to set the style of your output`
+        }, {
+            role: 'user',
+            content: `${data}
+            ***
+            🚀 The Whimsical Tale of TSLA Stock 🤖
+            TSLA, a stock as electric as its cars, is a rollercoaster ride powered by innovation and tweets! It's not just a car company; 
+            it's a dream factory churning out robots (Optimus!), battery packs, and self-driving software.
+            Analysts are currently playing a game of "Pin the Tail on the Price Target," with most settling on a Hold 🤝 rating. 
+            The bulls cheer its AI dominance and energy business, while the bears grumble about high valuation (P/E over 300x!), margin pressures, and competition trying to steal its thunder. A recent downgrade by a major bank suggests the current price is a little too zippy.
+            The Verdict: If you're holding a ticket from way back, you might Hold tight for the Robotaxi/Optimus reveal. 
+            For new players, a Hold or cautious Sell might be wiser, waiting for a less bubbly entry point. 
+            Remember: this stock is a high-speed chase, not a cozy Sunday drive!
+            ***
+            `
+        }]
+
+        const response = await openai.chat.completions.create({
+            model: 'gpt-3.5-turbo',
+            messages: messages,
+            temperature: 1.1,
+            presence_penalty: 0,
+            frequency_penalty: 0
+        })
+        return response.choices[0].message.content
+    } catch (err) {
+        console.error(`There was an error loading stock report ${report}`)
+        loadingArea.textContent = 'Unable to access AI. Please refresh te page.'
+    }
 }
 
 function RenderOutput(data) {
     loadingArea.style.display = 'none'
     const outputArea = document.querySelector('.output-panel')
-    const report = document.createElement('p')
-    outputArea.appendChild(report)
-    report.textContent = 'Stock data loaded. Report generation coming soon!'
+    const output = document.createElement('p')
+    outputArea.appendChild(output)
+    output.textContent = FetchReport(data)
     outputArea.style.display = 'flex'
 }
